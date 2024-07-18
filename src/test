@@ -1,0 +1,31 @@
+select concat(last_name ,'  ',h.description) from owners inner join houses h on owners.id = h.owner_id where last_name like  '_________';
+select houses.price from houses where price between 1500 and 2000;
+select concat(addresses.id ) from addresses  inner join houses h on addresses.id  = h.address_id where address_id = 1 and 2;
+select houses.description,houses.price,houses.house_type from houses;
+select price from houses right join  owners o on houses.owner_id = o.id;
+select  distinct houses.house_type from  houses   order by house_type desc ;
+select   concat(sum(price),'    ',sum(id))  as basyy from houses;
+--8. Агентсволардын арасынан аты ‘My_House’ болгон агентсвоны, агентсвонын адресин жана анын бардык уйлорун, уйлордун        адрессин чыгар.
+select concat(street,'  ',h.house_type)  as address_____ui from addresses inner join agencies a on addresses.id = a.address_id  inner join houses h on addresses.id = h.address_id  where name =  'My House';
+   -- - 9. Уйлордун арасынан мебели бар уйлорду, уйдун ээсин жана уйдун адрессин чыгар.
+select concat(houses.house_type,'   ',a.street) from houses inner join addresses a on a.id = houses.address_id where houses.description =  'Flatley, Medhurst and Reilly';
+--10.Кленти жок уйлордун баарын жана анын адрессин жана ал уйлор кайсыл агентсвога тийешелуу экенин чыгар.
+--select  concat(houses.house_type,'   ',a.name,'    ',houses.check_in) from houses  inner join agencies a on a.id = houses.address_id where check_in  is null;
+--11Клиенттердин улутуна карап, улутуну жана ал улуутта канча клиент жашайт санын чыгар.
+select  count(customers.last_name),a.city   from customers inner join  addresses a on a.id =  customers.id  group by last_name, a.city;
+--12.Уйлордун арасынан рейтингтери чон, кичине, орточо болгон 3 уйду чыгар.
+select avg(houses.room),sum(houses.room),min(houses.room) from houses;
+--13.Уйлору жок киленттерди, клиенттери жок уйлорду чыгар.
+select houses.description from houses inner join customers c on c.last_name = houses.description where c.last_name  is null ;
+--14.Уйлордун бааларынын орточо суммасын чыгар.
+select  avg(houses.price) from houses;
+--15.‘A’ тамга менен башталган уйдун ээсинин аттарын, клиенттердин аттарын чыгар.
+select houses.description ,houses.house_type ,a.last_name from houses inner join customers a on a.id = houses.id where a.last_name   ilike 'A%' and  house_type ilike 'A%' and last_name ilike  'A%';
+    --16.Эн уйу коп owner_ди жана анын уйлорунун санын чыгар.
+--select max(),owners.last_name from owners inner join houses h on owners.id = h.owner_id
+--17.Улуту Kyrgyzstan уй-булолу customerлерди чыгарыныз.
+    select customers.nationality from customers where nationality = 'Kyrgyz';
+--18.Эн коп болмолуу уйду жана анын адресин ал уй кайсыл ownerге таандык ошону чыгарыныз.
+select  max(houses.room), a.street, houses.description from houses inner join addresses a on a.id = houses.address_id
+group by a.street, houses.description
+
